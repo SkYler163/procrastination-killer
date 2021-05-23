@@ -1,6 +1,6 @@
 # Procrastination killer
 ___
-[![Go Report Card](https://github.com/SkYler163/procrastination-killer)](https://github.com/SkYler163/procrastination-killer) 
+[![Go Report Card](https://github.com/SkYler163/procrastination-killer)](https://github.com/SkYler163/procrastination-killer)
 [![License][icon_license]][license]
 A little app that helps you to be more productive
 

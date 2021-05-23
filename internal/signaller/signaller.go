@@ -11,10 +11,12 @@ import (
 	"github.com/pkg/errors"
 )
 
+// Signaller signaller struct.
 type Signaller struct {
 	buffer *beep.Buffer
 }
 
+// NewSignaller creates an instance of signaller.
 func NewSignaller(filepath string) (*Signaller, error) {
 	f, err := os.Open(filepath)
 	if err != nil {
@@ -50,6 +52,7 @@ func NewSignaller(filepath string) (*Signaller, error) {
 	return &Signaller{buffer: buffer}, nil
 }
 
+// Signal makes a sound to mark the end of the period.
 func (s *Signaller) Signal() {
 	speaker.Play(s.buffer.Streamer(0, s.buffer.Len()))
 }

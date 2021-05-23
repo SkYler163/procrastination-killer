@@ -7,6 +7,7 @@ import (
 	"github.com/SkYler163/procrastination-killer/internal/timer"
 )
 
+// Interfacer an interfacer struct.
 type Interfacer struct {
 	timer              *timer.Pomodoro
 	ticksChan          chan float64
@@ -18,6 +19,7 @@ type Interfacer struct {
 	mu                 *sync.Mutex
 }
 
+// NewInterfacer creates instance of interfacer.
 func NewInterfacer(
 	timer *timer.Pomodoro,
 	ticksChan chan float64,

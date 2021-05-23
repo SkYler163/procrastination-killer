@@ -12,6 +12,7 @@ import (
 	"github.com/SkYler163/procrastination-killer/internal/signaller"
 )
 
+// Pomodoro pomodoro timer struct.
 type Pomodoro struct {
 	signaller          *signaller.Signaller
 	workPeriodMinutes  int
@@ -25,6 +26,7 @@ type Pomodoro struct {
 	mu                 *sync.Mutex
 }
 
+// NewPomodoro creates an instance of pomodoro timer.
 func NewPomodoro(
 	signaller *signaller.Signaller,
 	workPeriodMinutes, shortRestMinutes, longRestMinutes int,
@@ -48,6 +50,7 @@ func NewPomodoro(
 	}
 }
 
+// Run runs pomodoro timer.
 func (p *Pomodoro) Run() {
 	ticker := time.NewTicker(time.Second)
 	roundEnd := make(chan struct{})
