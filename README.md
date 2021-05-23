@@ -1,7 +1,9 @@
 # Procrastination killer
 ___
-[![Go Report Card](https://github.com/SkYler163/procrastination-killer)](https://github.com/SkYler163/procrastination-killer)
-[![License][icon_license]][license]
+[![Go Report Card](https://goreportcard.com/badge/github.com/SkYler163/procrastination-killer)](https://goreportcard.com/report/github.com/SkYler163/procrastination-killer)
+[![Build](https://travis-ci.com/SkYler163/procrastination-killer.svg?branch=master)](https://travis-ci.com/SkYler163/procrastination-killer)
+[![License](https://img.shields.io/badge/license-GPL3.0-blue.svg)](LICENSE)
+
 A little app that helps you to be more productive
 
 ![](./screenshot.png)
