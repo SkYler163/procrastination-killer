@@ -13,12 +13,6 @@ Application based on pomodoro timer method. It uses [fyne](https://github.com/fy
 
 ## Installing
 
-### Go
-```shell
-go get -u github.com/SkYler163/procrastination-killer
-procrastination-killer
-```
-
 ### Mac/Linux/Windows
 ```shell
 git clone github.com/SkYler163/procrastination-killer
