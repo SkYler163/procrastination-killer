@@ -23,7 +23,7 @@ linters:
 
 linters-settings:
   goimports:
-    local-prefixes: prokrastintation-killer
+    local-prefixes: github.com/SkYler163/procrastination-killer
   funlen:
     lines: 100
     statements: 40
