@@ -15,8 +15,8 @@ type Interfacer struct {
 	timeLeftChan       chan string
 	controlSignalsChan chan model.ControlSignals
 	exitChan           chan struct{}
-	workTimeMin        int
 	mu                 *sync.Mutex
+	workTimeMin        int
 }
 
 // NewInterfacer creates instance of interfacer.

@@ -1,7 +1,7 @@
 package signaller
 
 import (
-	"os"
+	"io"
 	"time"
 
 	"github.com/faiface/beep"
@@ -17,14 +17,8 @@ type Signaller struct {
 }
 
 // NewSignaller creates an instance of signaller.
-func NewSignaller(filepath string) (*Signaller, error) {
-	f, err := os.Open(filepath)
-	if err != nil {
-		return nil, errors.Wrap(err, "failed to open file")
-	}
-	defer f.Close()
-
-	streamer, format, err := mp3.Decode(f)
+func NewSignaller(signalFile io.ReadCloser) (*Signaller, error) {
+	streamer, format, err := mp3.Decode(signalFile)
 	if err != nil {
 		return nil, errors.Wrap(err, "failed to decode mp3")
 	}

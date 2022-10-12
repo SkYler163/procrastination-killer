@@ -1,6 +1,7 @@
 package main
 
 import (
+	"embed"
 	"log"
 	"sync"
 
@@ -11,6 +12,9 @@ import (
 	"github.com/SkYler163/procrastination-killer/internal/signaller"
 	"github.com/SkYler163/procrastination-killer/internal/timer"
 )
+
+//go:embed static
+var f embed.FS
 
 func main() {
 	var (
@@ -25,7 +29,12 @@ func main() {
 	timeLeftChan := make(chan string)
 	timerMutex := sync.Mutex{}
 
-	s, err := signaller.NewSignaller("static/cuckoo-clock.mp3")
+	signalFile, err := f.Open("static/cuckoo-clock.mp3")
+	if err != nil {
+		log.Println(errors.Wrap(err, "failed to open signalFile"))
+	}
+
+	s, err := signaller.NewSignaller(signalFile)
 	if err != nil {
 		log.Println(errors.Wrap(err, "failed to run signaller"))
 
@@ -44,7 +53,7 @@ func main() {
 	render, err := interfacer.
 		NewInterfacer(pomodoro, ticksChan, timeLeftChan, ticksResetChan, controlSignalChan,
 			exitChan, workPeriodMinutes, &interfaceLocker).
-		Render()
+		Render(f)
 	if err != nil {
 		log.Println(errors.Wrap(err, "failed to render interface"))
 

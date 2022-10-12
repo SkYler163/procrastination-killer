@@ -15,15 +15,15 @@ import (
 // Pomodoro pomodoro timer struct.
 type Pomodoro struct {
 	signaller          *signaller.Signaller
-	workPeriodMinutes  int
-	shortRestMinutes   int
-	longRestMinutes    int
 	controlSignalsChan chan model.ControlSignals
 	ticksChan          chan float64
 	ticksReset         chan float64
 	timeLeftChan       chan string
 	exitChan           chan struct{}
 	mu                 *sync.Mutex
+	workPeriodMinutes  int
+	shortRestMinutes   int
+	longRestMinutes    int
 }
 
 // NewPomodoro creates an instance of pomodoro timer.
