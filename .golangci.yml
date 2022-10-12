@@ -10,9 +10,12 @@ run:
 linters:
   disable:
     - maligned
-    - gci
     - exhaustivestruct
     - gomnd
+    - gofumpt
+    - scopelint
+    - golint
+    - interfacer
   presets:
     - bugs
     - complexity
@@ -31,6 +34,6 @@ linters-settings:
     max-blank-identifiers: 3
   cyclop:
     max-complexity: 20
-govet:
-  enable:
-    - fieldalignment
+  govet:
+    enable:
+      - fieldalignment
