@@ -50,11 +50,16 @@ func NewPomodoro(
 	}
 }
 
+const (
+	secondsInMinute  = 60
+	roundsToLongRest = 4
+)
+
 // Run runs pomodoro timer.
 func (p *Pomodoro) Run() {
 	ticker := time.NewTicker(time.Second)
 	roundEnd := make(chan struct{})
-	ticks := p.workPeriodMinutes * 60
+	ticks := p.workPeriodMinutes * secondsInMinute
 	ticksNumber := make(chan int)
 	ticksPassed := float64(0)
 	p.ticksReset <- float64(ticks)
@@ -71,7 +76,7 @@ func (p *Pomodoro) Run() {
 				ticks = tn
 				p.mu.Unlock()
 			case <-ticker.C:
-				p.timeLeftChan <- fmt.Sprintf("%02d:%02d", ticks/60, ticks%60)
+				p.timeLeftChan <- fmt.Sprintf("%02d:%02d", ticks/secondsInMinute, ticks%secondsInMinute)
 				p.mu.Lock()
 
 				ticks--
@@ -136,11 +141,11 @@ func (p *Pomodoro) tickerController(
 			case isWorkPeriod:
 				roundNumber++
 
-				newTicksNumber = p.workPeriodMinutes * 60
-			case !isWorkPeriod && (roundNumber%4) == 0:
-				newTicksNumber = p.longRestMinutes * 60
+				newTicksNumber = p.workPeriodMinutes * secondsInMinute
+			case !isWorkPeriod && (roundNumber%roundsToLongRest) == 0:
+				newTicksNumber = p.longRestMinutes * secondsInMinute
 			default:
-				newTicksNumber = p.shortRestMinutes * 60
+				newTicksNumber = p.shortRestMinutes * secondsInMinute
 			}
 
 			ticksNumber <- newTicksNumber
