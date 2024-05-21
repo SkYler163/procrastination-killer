@@ -6,7 +6,7 @@ env:
     - GO111MODULE=on
 
 go:
-  - 1.16.x
+  - 1.22.2
 
 install: true
 

@@ -16,6 +16,12 @@ type Signaller struct {
 	buffer *beep.Buffer
 }
 
+const (
+	base       = 2
+	volume     = -0.5
+	sampleRate = time.Second / 10
+)
+
 // NewSignaller creates an instance of signaller.
 func NewSignaller(signalFile io.ReadCloser) (*Signaller, error) {
 	streamer, format, err := mp3.Decode(signalFile)
@@ -23,15 +29,15 @@ func NewSignaller(signalFile io.ReadCloser) (*Signaller, error) {
 		return nil, errors.Wrap(err, "failed to decode mp3")
 	}
 
-	err = speaker.Init(format.SampleRate, format.SampleRate.N(time.Second/10))
+	err = speaker.Init(format.SampleRate, format.SampleRate.N(sampleRate))
 	if err != nil {
 		return nil, errors.Wrap(err, "failed init speaker")
 	}
 
 	volume := &effects.Volume{
 		Streamer: streamer,
-		Base:     2,
-		Volume:   -0.5,
+		Base:     base,
+		Volume:   volume,
 		Silent:   false,
 	}
 
