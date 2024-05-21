@@ -3,6 +3,9 @@ package interfacer
 import (
 	"embed"
 	"fmt"
+	"log"
+	"net/url"
+
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/app"
 	"fyne.io/fyne/v2/canvas"
@@ -10,8 +13,6 @@ import (
 	"fyne.io/fyne/v2/layout"
 	"fyne.io/fyne/v2/widget"
 	"github.com/pkg/errors"
-	"log"
-	"net/url"
 
 	"github.com/SkYler163/procrastination-killer/internal/model"
 )
@@ -21,7 +22,12 @@ type buttonSwitcher struct {
 	action func()
 }
 
+const (
+	width, height = 75, 75
+)
+
 // Render renders interface.
+// nolint: funlen
 func (i *Interfacer) Render(fs embed.FS) (fyne.Window, error) {
 	myApp := app.New()
 	myWindow := myApp.NewWindow("procrastination killer")
@@ -55,7 +61,7 @@ func (i *Interfacer) Render(fs embed.FS) (fyne.Window, error) {
 
 	img := canvas.NewImageFromReader(pomodoro, "pomodoro")
 	img.FillMode = canvas.ImageFillContain
-	img.SetMinSize(fyne.NewSize(75, 75))
+	img.SetMinSize(fyne.NewSize(width, height))
 
 	timeLeft := widget.NewLabel(fmt.Sprintf("%02d:00", i.workTimeMin))
 	timeLeft.TextStyle.Bold = true
@@ -90,7 +96,7 @@ func (i *Interfacer) Render(fs embed.FS) (fyne.Window, error) {
 	}
 	switcher := int8(0)
 	switchButton = widget.NewButtonWithIcon("", playIcon, func() {
-		switcher = (switcher + 1) % 2
+		switcher = (switcher + 1) % 2 // nolint: mnd
 		switchButton.SetIcon(bs[switcher].icon)
 		bs[switcher].action()
 	})
@@ -99,10 +105,15 @@ func (i *Interfacer) Render(fs embed.FS) (fyne.Window, error) {
 		layout.NewSpacer(),
 		widget.NewButtonWithIcon("", stopIcon, func() {
 			switcher = 0
+
 			switchButton.SetIcon(playIcon)
+
 			i.controlSignalsChan <- model.ControlSignalStop
+
 			isTimerRunning = false
+
 			timeLeft.SetText(fmt.Sprintf("%02d:00", i.workTimeMin))
+
 			pb.SetValue(0)
 		}),
 	)

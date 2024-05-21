@@ -3,7 +3,9 @@
 run:
   modules-download-mode: vendor
   tests: true
-  skip-dirs:
+
+issues:
+  exclude-dirs:
     - vendor
     - tools
 
@@ -12,10 +14,14 @@ linters:
     - maligned
     - exhaustivestruct
     - gomnd
-    - gofumpt
     - scopelint
     - golint
     - interfacer
+    - depguard
+    - varnamelen
+    - exhaustruct
+    - ireturn
+    - nolintlint
   presets:
     - bugs
     - complexity
@@ -37,3 +43,8 @@ linters-settings:
   govet:
     enable:
       - fieldalignment
+  gci:
+    sections:
+      - standard
+      - default
+      - prefix(github.com/SkYler163/procrastination-killer)

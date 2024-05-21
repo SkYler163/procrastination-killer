@@ -13,7 +13,7 @@ import (
 	"github.com/SkYler163/procrastination-killer/internal/timer"
 )
 
-//go:embed static
+//go:embed all:static
 var f embed.FS
 
 func main() {
